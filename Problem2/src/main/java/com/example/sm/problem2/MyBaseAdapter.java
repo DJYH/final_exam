@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+import static com.example.sm.problem2.R.layout.list_view_item_layout;
+
 public class MyBaseAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
     Context mContext = null;
@@ -66,6 +68,32 @@ public class MyBaseAdapter extends BaseAdapter implements AdapterView.OnItemClic
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // need something here
+        //somthing
+        final int pos = position;
+        final Context context = parent.getContext();
+
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(list_view_item_layout, parent, false);
+
+        }
+        // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
+
+        TextView nameTextView = (TextView) convertView.findViewById(R.id.text_employeeName);
+        TextView ageTextView = (TextView) convertView.findViewById(R.id.text_employeeAge);
+        TextView salTextView = (TextView) convertView.findViewById(R.id.text_employeeSalary);
+
+        Employee listViewItem = mData.get(position);
+
+        // 아이템 내 각 위젯에 데이터 반영
+
+        nameTextView.setText(listViewItem.getName());
+        ageTextView.setText(String.valueOf(listViewItem.getAge()));
+        salTextView.setText(String.valueOf(listViewItem.getSalary()));
+
+        return convertView;
     }
 }
+
+
+
